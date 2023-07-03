@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 public class MyDatabase extends SQLiteOpenHelper
 {
-
     public MyDatabase(@Nullable Context context) {
         super(context, "ContactBook", null, 1);
         Log.d("YYY", "MyDatabase: Database Created");
@@ -42,6 +41,19 @@ public class MyDatabase extends SQLiteOpenHelper
         SQLiteDatabase db=getReadableDatabase();
         Cursor cursor= db.rawQuery(query,null);
         return cursor;
+    }
+
+    public void deleteData(int id)
+    {
+        String query="delete from Contact where ID="+id+"";
+        SQLiteDatabase db=getWritableDatabase();
+        db.execSQL(query);
+    }
+
+    public void updateData(int id, String name, String number) {
+        String query="update Contact set NAME='"+name+"',NUMBER='"+number+"' where ID="+id+"";
+        SQLiteDatabase db=getWritableDatabase();
+        db.execSQL(query);
     }
     //update query="update Contact set NAME='"+name+"', NUMBER='"+number+"' where ID="+id+"
     //delete query="delete from Contact where ID="+id+"

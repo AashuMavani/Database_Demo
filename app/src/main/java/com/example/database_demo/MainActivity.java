@@ -6,23 +6,32 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
 {
+    List<Integer> idList=new ArrayList<>();
+    List<String> nameList=new ArrayList<>();
+    List<String> numberList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         MyDatabase database=new MyDatabase(MainActivity.this);
-        database.addContact("Abc","95102454545");
+        //database.addContact("Ghi","8898866666");
         Cursor cursor=database.showData();
+        //database.deleteData(4);
+        database.updateData(3,"JKL","8898866666");
 
         while (cursor.moveToNext())
         {
-            int id=cursor.getInt(0);
-            String name=cursor.getString(1);
-            String number=cursor.getString(2);
-            Log.d("YYY", "ID=:"+id+"\tName="+name+"\tNumber="+number);
+            idList.add(cursor.getInt(0));
+            nameList.add(cursor.getString(1));
+            numberList.add(cursor.getString(2));
+
         }
+        Log.d("YYY", "ID=:"+idList+"\tName="+nameList+"\tNumber="+numberList);
     }
 }
